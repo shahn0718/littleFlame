@@ -32,9 +32,10 @@ app.use(express.static('view/public/'));
 //Setting Session
 app.use(session({
   resave: false,
-  saveUnintialized: true,
+  saveUninitialized: true,
   secret: 'keyboard cat'
 }));
+
 
 //Setting Passport
 app.use(passport.initialize());
