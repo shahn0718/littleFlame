@@ -7,14 +7,13 @@ var dbInfo = require('../../lib/connectDb');
 var bodyParser = require('body-parser');
 var path = require('path');
 
-dbInfo();
-var db = firebase.database();
 
 router.get('/', (req,res,next)=>{
   res.sendFile(path.join(__dirname,'../../view/public/insert.html'));
 });
 
 module.exports = router;
+
 
 
 
