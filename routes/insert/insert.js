@@ -10,17 +10,19 @@ var path = require('path');
 dbInfo();
 var db = firebase.database();
 
+router.get('/', (req,res,next)=>{
+  res.sendFile(path.join(__dirname,'../../view/public/insert.html'));
+});
+
+module.exports = router;
+
+
+
+
+/*
 function getMemoList(){
   
   var memoRef = db.ref('test/uid/');
-  var memo = db.ref('test');
-
-  memo.on('value',(data)=>{
-    
-    console.log("---------------");
-  });
-
-
   memoRef.on('child_added',(data)=>{
     
     console.log(data.val());
@@ -28,7 +30,18 @@ function getMemoList(){
   });
 }
 
-getMemoList();
+function savaMemoList(){
+  var memoRef =  db.ref('test/uid/');
 
+  memoRef.push({
+    place: "cafe",
+    possibility:"bad",
+    author:"ahn"
+  });
+}
 
-module.exports = router;
+//savaMemoList();
+
+//getMemoList();
+
+*/
