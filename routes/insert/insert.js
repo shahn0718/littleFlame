@@ -1,4 +1,3 @@
-
 var express = require('express');
 var app = express();
 var router = express.Router();
@@ -9,11 +8,23 @@ var path = require('path');
 
 
 router.get('/', (req,res,next)=>{
-  res.sendFile(path.join(__dirname,'../../view/public/insert.html'));
+  res.sendFile(path.join(__dirname,'../../view/public/survey.html'));
 });
 
 dbInfo();
 let db = firebase.database();
+function saveData(){
+  var saveRef = db.ref('test/auth/id');
+ 
+  saveRef.push({
+    id :"Sang"
+  });
+}
+
+saveData();
+
+
+/*
 let key;
 function getUid(){
 
@@ -26,7 +37,7 @@ function getUid(){
   console.log("2"+key);
 }
 console.log("3"+getUid());
-
+*/
 
 
 /*

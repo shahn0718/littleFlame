@@ -5,11 +5,14 @@ var router = express.Router();
 var path = require('path');
 
 var insert = require('./insert/insert');
+var login = require('./login/login');
 
 //부속 라우터 설정후 연결
 
 
 router.use('/insert',insert);
+router.use('/login',login);
+
 
 module.exports = router;
 
