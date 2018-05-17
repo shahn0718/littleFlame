@@ -6,22 +6,94 @@ var dbInfo = require('../../lib/connectDb');
 var bodyParser = require('body-parser');
 var path = require('path');
 
+var googleStorage = require('@google-cloud/storage');
+var Multer = require('multer');
 
-router.get('/', (req,res,next)=>{
-  res.sendFile(path.join(__dirname,'../../view/public/survey.html'));
-});
 
-dbInfo();
-let db = firebase.database();
-function saveData(){
-  var saveRef = db.ref('test/auth/id');
- 
-  saveRef.push({
-    id :"Sang"
+
+  const storage = googleStorage({
+    projectId: "shahn920718",
+    keyFilename: "../../bin/secret.json"
   });
-}
 
-saveData();
+  const bucket = storage.bucket("shahn920718.appspot.com");
+
+  const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024 // no larger than 5mb, you can change as needed.
+    }
+  });
+
+  router.post('/', multer.single('file'), (req, res) => {
+    
+    console.log('Upload Image');
+  
+    let file = req.file;
+    console.log(file)
+    if (file) {
+      uploadImageToStorage(file).then((success) => {
+        res.status(200).send({
+          status: 'success'
+        });
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+  });
+
+
+
+
+
+
+
+
+
+router.use(bodyParser.urlencoded({extended: false}));
+
+
+
+/*
+router.post('/',(req,res)=>{
+
+  dbInfo();
+  var storageRef = firebase.storage();
+  console.log("I'm here");
+  var fileName = req.body.file_name;
+  console.log(fileName);
+
+})
+
+*/
+/*
+router.post('/', (req,res)=>{
+  
+  dbInfo();
+  var file = req.body.file;
+  console.log(file);
+  //var uploader = document.getElementById('uploader');
+  var storageRef = firebase.storage();
+  var task = storageRef.put(file);
+          task.on('state_changed',
+      
+            function progress(snapshot){
+              //프로그래스 바 진행상황
+              var percentage = (snapshot.bytesTransferred/snapshot.totalBytes) * 100; 
+              uploader.value = percentage;
+            },
+      
+            function error(err) {
+      
+            },
+      
+            function complete(){
+      
+            }
+      
+        
+        );
+});
 
 
 /*

@@ -7,14 +7,9 @@ var dbInfo = require('../../lib/connectDb');
 var bodyParser = require('body-parser');
 var path = require('path');
 
-
-
-
 router.post('/',(req,res)=>{
   dbInfo();
   let db = firebase.database();
-
-  let k;
   var passedCode = req.body.code;
   console.log(passedCode);
   //console.log(typeof(passedCode));
@@ -28,10 +23,10 @@ router.post('/',(req,res)=>{
     for(var key in keys){
       if(passedCode === codeList[keys[key]]){
         res.sendFile(path.resolve('view/public/survey.html'));
+        return;
       }
     }
-    console.log('false');
-    res.sendFile(path.resolve('view/public/error.html'));
+    res.sendFile(path.resolve('view/public/insert.html'));
   });
 });
 

@@ -31,10 +31,14 @@
   
 </head>
 <body>
+    <form action="/insert" method="POST">
+    
     <progress value ="0" max ="100" id="uploader">0%</progress>
-    <input type="file" value="upload" id="fileButton" />
-
-
+    <input type="file" value="upload" name="file_name" id="fileButton" />
+    <button type = "submit">업로드</button>
+  
+    </form>
+<!--
 <script>
    var config = {
           apiKey: "AIzaSyDFw7wQFT3Utzz2TYupqE8fRk6AN4UUkTE",
@@ -77,5 +81,6 @@
       
        });
 </script>
+-->
 </body>
 </html>
